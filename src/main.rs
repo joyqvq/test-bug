@@ -5,10 +5,12 @@ fn main() {
         values: Default::default(),
     });
 
+    let mut all_keys = vec![];
+    let state_clone = state.clone();
     for keys in vec![vec![("p1_key1".to_string(), "p1_val1".to_string()), ("p1_key2".to_string(), "p1_val2".to_string())], vec![("p2_key1".to_string(), "p2_val1".to_string())]] {
-        let state_clone = state.clone();
-        update_keys(state_clone, keys);
+        all_keys.extend(keys);
     }
+    update_keys(state_clone, all_keys);
     println!("{:?}", state.values.read().unwrap());
 }
 
