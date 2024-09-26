@@ -14,7 +14,6 @@ fn main() {
     println!("{:?}", state.values.read().unwrap());
 }
 
-/// Application state that contains the seed and JWKs.
 #[derive(Clone, Debug)]
 pub struct AppState {
     pub values: Arc<RwLock<HashMap<String, String>>>,
@@ -28,11 +27,11 @@ pub fn update_keys(state_clone: Arc<AppState>, keys: Vec<(String, String)>) {
             values.remove(k);
         }
     }
-    for (jwk_id, jwk) in keys {
-        if values.contains_key(&jwk_id) {
+    for (key, val) in keys {
+        if values.contains_key(&key) {
             continue;
         }
 
-        values.insert(jwk_id, jwk.clone());
+        values.insert(key, val.clone());
     }
 }
